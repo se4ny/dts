@@ -1,0 +1,2 @@
+Checks: 'clang-analyzer-*,modernize-*,readability-*'
+FormatStyle: LLVM

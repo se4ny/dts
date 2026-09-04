@@ -1,0 +1,19 @@
+.{
+    .name = .dts,
+    .version = "0.1.0",
+    .fingerprint = 0x32c0269a2bec7aa2, // Changing this has security and trust implications.
+    .minimum_zig_version = "0.16.0",
+    .dependencies = .{
+        .@"compile-commands" = .{
+            .url = "git+https://github.com/the-argus/zig-compile-commands.git",
+            .hash = "zig_compile_commands-1.0.3-OZg5-QHMAQCp-SHhO5yA-or-1I-i1uR94wVmtjY1rT2I",
+        },
+    },
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+        "LICENSE",
+        //"README.md",
+    },
+}
