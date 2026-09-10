@@ -26,11 +26,6 @@ using namespace collections;
 /// TODO
 struct DTS_API Shape final {
  public:
-   // Shape() = default;
-   // Shape(const Shape &) = delete;
-
-   // Shape(i32 version) : version{version} {}
-
    i32 version;
 
    material::Materials materials;

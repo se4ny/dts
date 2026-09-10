@@ -22,8 +22,13 @@ struct DTS_API Sequence final {
    i32 priority{0};
    i32 ground_frame_start{0};
    i32 ground_frame_count{0};
+
+   /// Corresponds to @ref Shape::base_rotations
    i32 base_rotation{0};
+
+   /// Corresponds to @ref Shape::node_translations
    i32 base_translation{0};
+
    i32 base_scale{0};
    i32 base_object_state{0};
    i32 trigger_start{0};
