@@ -14,15 +14,9 @@ pub fn build(b: *std.Build) !void {
     mod.addCMacro("_DTS_BUILD", "1");
     mod.addIncludePath(b.path("include"));
     mod.addIncludePath(b.path("src"));
-    mod.addCSourceFiles(.{
-        .root = b.path("src"),
-        .files = &.{
-            "shape/shape.cpp",
-        },
-        .flags = &.{
-            "-std=c++26",
-        },
-        .language = .cpp,
+    mod.addCSourceFile(.{
+        .file = b.path("src/shape/shape.cpp"),
+        .flags = &.{"-std=c++26"},
     });
 
     const lib = b.addLibrary(.{
