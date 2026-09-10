@@ -2,7 +2,6 @@
 #include <cmath>
 #include <cstddef>
 #include <optional>
-#include <print>
 #include <ranges>
 #include <span>
 #include <string>
@@ -140,12 +139,10 @@ auto export_shape(const Shape &shape, std::filesystem::path &path) -> bool {
 
    guard.guard();
 
-   std::println("{}", static_cast<i32>(stream8.tellp()));
    for (const auto &name : shape.names) {
       io::write(stream8, name);
       io::write<u8>(stream8, '\0');
    }
-   std::println("{}", static_cast<i32>(stream8.tellp()));
 
    guard.guard();
 
@@ -392,8 +389,6 @@ auto import_shape(const std::filesystem::path &path)
    io::guard_unchecked<i32>(stream32);
    io::guard_unchecked<i16>(stream16);
    io::guard_unchecked<i8>(stream8);
-
-   std::println("{}", static_cast<i32>(stream8.tellg()));
 
    auto names = std::views::istream<std::byte>(stream8) |
                 std::views::transform([](auto byte) -> char8_t {
