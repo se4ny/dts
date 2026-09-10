@@ -52,10 +52,8 @@ pub fn build(b: *std.Build) !void {
 
     const test_step = b.step("test", "Build test suite");
     test_step.dependOn(&test_install.step);
-    // test_step.dependOn(&lib.step);
 
     // Compile commands
-    // make a list of targets that have include files and c source files
     var targets: std.ArrayList(*std.Build.Step.Compile) = .empty;
 
     try targets.append(b.allocator, lib);
