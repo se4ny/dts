@@ -27,6 +27,8 @@ struct DTS_API Object final {
    i32 start_mesh_index{0};
    i32 node_index{0};
    i32 next_sibling{0};
+
+ private:
    i32 _padding{0};
 };
 static_assert(std::is_trivially_copyable_v<Object>);
