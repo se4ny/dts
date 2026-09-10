@@ -1,6 +1,8 @@
 #ifndef _DTS_IO_STREAM_HPP
 #define _DTS_IO_STREAM_HPP
 
+#include <utility>
+
 #include "dts/collections.hpp"
 #include "io/io.hpp"
 
@@ -16,12 +18,12 @@ class VectorBuffer : public io::stream_buf {
    auto size() -> usize { return this->buffer.size(); }
 
  protected:
-   auto overflow(int_type c) -> int_type override {
-      if (traits_type::eq_int_type(c, traits_type::eof())) {
-         return traits_type::not_eof(c);
+   auto overflow(int_type chr) -> int_type override {
+      if (traits_type::eq_int_type(chr, traits_type::eof())) {
+         return traits_type::not_eof(chr);
       }
 
-      const auto pos = pptr() ? static_cast<usize>(pptr() - pbase()) : 0;
+      const auto pos = pptr() != nullptr ? pptr() - pbase() : 0;
 
       // NOLINTBEGIN(readability-magic-numbers)
       this->buffer.resize(this->buffer.size() + 1024);
@@ -30,17 +32,17 @@ class VectorBuffer : public io::stream_buf {
       this->setp(this->buffer.data(),
                  this->buffer.data() + this->buffer.size());
       this->pbump(pos);
-      *pptr() = traits_type::to_char_type(c);
+      *pptr() = traits_type::to_char_type(chr);
       this->pbump(1);
-      return c;
+      return chr;
    }
 
    auto seekoff(off_type off, std::ios_base::seekdir dir,
                 std::ios_base::openmode which = std::ios_base::in |
                                                 std::ios_base::out)
        -> pos_type override {
-      if (!(which & std::ios_base::out)) {
-         return pos_type(off_type(-1));
+      if ((which & std::ios_base::out) == 0) {
+         return static_cast<pos_type>(static_cast<off_type>(-1));
       }
 
       auto current = static_cast<off_type>(pptr() - pbase());
@@ -51,37 +53,29 @@ class VectorBuffer : public io::stream_buf {
       case std::ios_base::beg:
          target = off;
          break;
-
       case std::ios_base::cur:
          target = current + off;
          break;
-
       case std::ios_base::end:
          target = static_cast<off_type>(buffer.size()) + off;
          break;
-
       default:
-         return pos_type(off_type(-1));
+         return static_cast<pos_type>(static_cast<off_type>(-1));
       }
 
-      if (target < 0) {
-         return pos_type(off_type(-1));
+      if (target < 0 || std::cmp_greater(target, buffer.size())) {
+         return static_cast<pos_type>(static_cast<off_type>(-1));
       }
 
-      if (static_cast<usize>(target) > buffer.size()) {
-         buffer.resize(static_cast<usize>(target));
-      }
+      pbump(target);
 
-      this->setp(buffer.data(), buffer.data() + buffer.size());
-
-      pbump(static_cast<int>(target));
-
-      return pos_type(target);
+      return static_cast<pos_type>(target);
    }
 
  private:
    collections::Vec<std::byte> buffer;
 };
+
 } // namespace dts::io
 
 #endif // _DTS_IO_STREAM_HPP
