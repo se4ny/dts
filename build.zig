@@ -23,7 +23,9 @@ pub fn build(b: *std.Build) !void {
         .name = "dts",
         .root_module = mod,
     });
-    lib.installHeadersDirectory(b.path("include"), ".", .{ .include_extensions = &.{ ".hpp", ".h" } });
+    lib.installHeadersDirectory(b.path("include"), "", .{
+        .include_extensions = &.{ ".hpp", ".h" },
+    });
 
     b.installArtifact(lib);
 
