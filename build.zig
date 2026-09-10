@@ -11,7 +11,7 @@ pub fn build(b: *std.Build) !void {
         .link_libcpp = target.result.abi != .msvc,
         .link_libc = true,
     });
-    mod.addCMacro("_DTS_CXX_BUILD", "1");
+    mod.addCMacro("_DTS_BUILD", "1");
     mod.addIncludePath(b.path("include"));
     mod.addIncludePath(b.path("src"));
     mod.addCSourceFiles(.{
