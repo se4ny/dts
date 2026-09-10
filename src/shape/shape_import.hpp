@@ -45,9 +45,11 @@ auto read_materials(io::istream &stream, const i32 version)
    auto bump_maps = io::read_unchecked<u32>(stream, mat_count);
    auto detail_maps = io::read_unchecked<u32>(stream, mat_count);
 
+   // NOLINTBEGIN(readability-magic-numbers)
    if (version == 25) {
       stream.seekg(sizeof(u32) * mat_count, std::ios::cur);
    }
+   // NOLINTEND(readability-magic-numbers)
 
    auto detail_scales = io::read_unchecked<f32>(stream, mat_count);
    auto reflection_amounts = io::read_unchecked<f32>(stream, mat_count);
@@ -121,6 +123,7 @@ auto read_detail(io::istream &stream, i32 version) -> Detail {
        .max_error = io::read_unchecked<f32>(stream),
        .polycount = io::read_unchecked<i32>(stream),
    };
+   // NOLINTBEGIN(readability-magic-numbers)
    if (version >= 26) {
       detail.bb_dimension = io::read_unchecked<i32>(stream);
       detail.bb_detail_level = io::read_unchecked<i32>(stream);
@@ -129,6 +132,7 @@ auto read_detail(io::istream &stream, i32 version) -> Detail {
       detail.bb_polar_angle = io::read_unchecked<f32>(stream);
       detail.bb_include_poles = io::read_unchecked<u32>(stream);
    }
+   // NOLINTEND(readability-magic-numbers)
    return detail;
 }
 
@@ -163,13 +167,17 @@ auto read_standard_mesh(io::istream &stream32, io::istream &stream16,
       mesh.tangents = io::read_unchecked<vec2>(stream32, vertex_tangent_count);
    } else {
       io::seek_unchecked<i32>(stream32, 1);
+      // NOLINTBEGIN(readability-magic-numbers)
       if (version > 25) {
+         // NOLINTEND(readability-magic-numbers)
          mesh.has_vert_2 = io::read_unchecked<i32>(stream32) != 0;
          mesh.has_color = io::read_unchecked<i32>(stream32) != 0;
       }
    }
 
+   // NOLINTBEGIN(readability-magic-numbers)
    if (parent_mesh < 0 && version > 25) {
+      // NOLINTEND(readability-magic-numbers)
       auto vertex_tangent2_count = io::read_unchecked<i32>(stream32);
       mesh.tangents2 =
           io::read_unchecked<vec2>(stream32, vertex_tangent2_count);
@@ -184,7 +192,9 @@ auto read_standard_mesh(io::istream &stream32, io::istream &stream16,
       io::seek_unchecked<i8>(stream8, vertex_count);
    }
 
+   // NOLINTBEGIN(readability-magic-numbers)
    if (version > 25) {
+      // NOLINTEND(readability-magic-numbers)
       auto primitive_len = io::read_unchecked<i32>(stream32);
       mesh.primitives =
           io::read_unchecked<mesh::Primitive>(stream32, primitive_len);

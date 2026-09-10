@@ -240,8 +240,10 @@ auto import_shape(const std::filesystem::path &path)
    auto node_uniform_scale_count = io::read_unchecked<i32>(stream32);
    auto node_aligned_scales_count = io::read_unchecked<i32>(stream32);
    auto node_arbitrary_scales_count = io::read_unchecked<i32>(stream32);
+   // NOLINTBEGIN(readability-magic-numbers)
    auto ground_frame_count =
        (version > 23) ? io::read_unchecked<i32>(stream32) : 0;
+   // NOLINTEND(readability-magic-numbers)
    auto object_state_count = io::read_unchecked<i32>(stream32);
    auto decal_state_count = io::read_unchecked<i32>(stream32);
    auto trigger_count = io::read_unchecked<i32>(stream32);
@@ -335,7 +337,9 @@ auto import_shape(const std::filesystem::path &path)
 
    auto ground_frames = Vec<vec3>{};
    auto ground_rotations = Vec<i16quat>{};
+   // NOLINTBEGIN(readability-magic-numbers)
    if (real_version > 23) {
+      // NOLINTEND(readability-magic-numbers)
       ground_frames = io::read_unchecked<vec3>(stream32, ground_frame_count);
       ground_rotations =
           io::read_unchecked<i16quat>(stream16, ground_frame_count);

@@ -23,12 +23,14 @@ using usize = size_t;
 #ifndef DTS_USE_GLM
 template <typename T, usize N> using vec = std::array<T, N>;
 
+// NOLINTBEGIN(readability-magic-numbers)
 using vec2 = vec<f32, 2>;
 using vec3 = vec<f32, 3>;
 using vec6 = vec<f32, 6>;
 using u8vec4 = vec<u8, 4>;
 using i16quat = vec<i16, 4>;
 using mat4x4 = vec<f32, 16>;
+// NOLINTEND(readability-magic-numbers)
 
 #else
 #endif

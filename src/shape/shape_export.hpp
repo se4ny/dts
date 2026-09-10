@@ -58,6 +58,7 @@ auto write_detail(io::ostream &stream, const shape::Detail &detail,
    io::write(stream, detail.average_error);
    io::write(stream, detail.max_error);
    io::write(stream, detail.polycount);
+   // NOLINTBEGIN(readability-magic-numbers)
    if (version >= 26) {
       io::write(stream, detail.bb_dimension);
       io::write(stream, detail.bb_detail_level);
@@ -66,6 +67,7 @@ auto write_detail(io::ostream &stream, const shape::Detail &detail,
       io::write(stream, detail.bb_polar_angle);
       io::write(stream, detail.bb_include_poles);
    }
+   // NOLINTEND(readability-magic-numbers)
 }
 
 auto write_materials(io::ostream &stream, const material::Materials &materials,
@@ -110,18 +112,22 @@ auto write_mesh(io::WriteGuard &guard, const mesh::Mesh &mesh,
       io::write(guard.stream32, mesh.tangents);
    } else {
       io::write(guard.stream32, 0);
+      // NOLINTBEGIN(readability-magic-numbers)
       if (version > 25) {
          io::write(guard.stream32, 0);
          io::write(guard.stream32, 0);
       }
+      // NOLINTEND(readability-magic-numbers)
    }
 
+   // NOLINTBEGIN(readability-magic-numbers)
    if (mesh.parent_mesh < 0 && version > 25) {
       io::write<i32>(guard.stream32, mesh.tangents2.size());
       io::write(guard.stream32, mesh.tangents2);
       io::write<i32>(guard.stream32, mesh.vertex_colors.size());
       io::write(guard.stream32, mesh.vertex_colors);
    }
+   // NOLINTEND(readability-magic-numbers)
 
    if (mesh.parent_mesh < 0) {
       io::write(guard.stream32, mesh.normals);
@@ -130,6 +136,7 @@ auto write_mesh(io::WriteGuard &guard, const mesh::Mesh &mesh,
       }
    }
 
+   // NOLINTBEGIN(readability-magic-numbers)
    if (version > 25) {
       io::write<i32>(guard.stream32, mesh.primitives.size());
       io::write(guard.stream32, mesh.primitives);
@@ -140,6 +147,7 @@ auto write_mesh(io::WriteGuard &guard, const mesh::Mesh &mesh,
           "mesh primitives and indices are not supported in version " +
           std::to_string(version));
    }
+   // NOLINTEND(readability-magic-numbers)
 
    io::write(guard.stream32, 0);
    io::write(guard.stream32, mesh.verts_per_frame);
