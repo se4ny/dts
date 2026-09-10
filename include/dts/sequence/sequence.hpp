@@ -8,7 +8,9 @@ namespace dts::sequence {
 
 using namespace types;
 
-using IntegerSet = std::array<i32, 8>;
+constexpr auto MAX_INTEGER_SET_SIZE = 8;
+
+using IntegerSet = std::array<i32, MAX_INTEGER_SET_SIZE>;
 
 /// TODO
 struct DTS_API Sequence final {

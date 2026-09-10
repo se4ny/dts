@@ -41,9 +41,10 @@ auto read_unchecked_fix_endianess(istream &stream) -> T {
    if constexpr (std::is_integral_v<T>) {
       return std::byteswap(val);
    } else {
+      constexpr auto BIT64_SIZE = 8;
       using U = std::conditional_t<
           sizeof(T) == 4, std::uint32_t,
-          std::conditional_t<sizeof(T) == 8, std::uint64_t, void>>;
+          std::conditional_t<sizeof(T) == BIT64_SIZE, std::uint64_t, void>>;
 
       static_assert(!std::is_same_v<U, void>, "Unsupported type size");
 

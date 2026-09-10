@@ -72,8 +72,10 @@ auto write_detail(io::ostream &stream, const shape::Detail &detail,
 
 auto write_materials(io::ostream &stream, const material::Materials &materials,
                      const i32 version) -> void {
+   constexpr auto VALID_MATERIAL_VERSION = 1;
+
    io::write<u8>(stream, materials.version);
-   if (materials.version != 1) {
+   if (materials.version != VALID_MATERIAL_VERSION) {
       return;
    }
 

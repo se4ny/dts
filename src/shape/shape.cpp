@@ -35,9 +35,13 @@ auto export_shape(const Shape &shape, std::filesystem::path &path) -> bool {
 
    io::write(outstream, EXPORT_VERSION | (EXPORT_VERSION << MAGIC_SHIFT));
 
-   io::VectorBuffer buffer32{1024 * 1024};
-   io::VectorBuffer buffer16{8192};
-   io::VectorBuffer buffer8{8192};
+   constexpr auto BUFFER32_BYTE_SIZE = 1024 * 1024;
+   constexpr auto BUFFER16_BYTE_SIZE = 8192;
+   constexpr auto BUFFER8_BYTE_SIZE = 8192;
+
+   io::VectorBuffer buffer32{BUFFER32_BYTE_SIZE};
+   io::VectorBuffer buffer16{BUFFER16_BYTE_SIZE};
+   io::VectorBuffer buffer8{BUFFER8_BYTE_SIZE};
 
    io::ostream stream32{&buffer32};
    io::ostream stream16{&buffer16};

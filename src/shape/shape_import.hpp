@@ -68,7 +68,7 @@ auto read_materials(io::istream &stream, const i32 version)
 }
 
 auto read_integer_set(io::istream &stream) -> sequence::IntegerSet {
-   const auto _ = io::read_unchecked<i32>(stream);
+   io::read_unchecked<i32>(stream);
 
    const auto length = io::read_unchecked<i32>(stream);
    sequence::IntegerSet result{0};
