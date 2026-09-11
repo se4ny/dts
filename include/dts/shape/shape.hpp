@@ -49,9 +49,15 @@ struct DTS_API Shape final {
    Vec<i32> sub_shape_first_objects;
    Vec<i32> sub_shape_nodes;
    Vec<i32> sub_shape_objects;
-   //
+
+   // Map one-to-one with @ref nodes.
+   /// The default rotation for a @ref shape::Node.
    Vec<i16quat> default_rotations;
+
+   /// The default translation for a @ref shape::Node.
    Vec<vec3> default_translations;
+
+   // Animation properties
    Vec<vec3> node_translations;
    Vec<i16quat> node_rotations;
    Vec<f32> node_uniform_scales;
