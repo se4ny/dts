@@ -1,6 +1,6 @@
 .{
     .name = .dts,
-    .version = "0.1.1",
+    .version = "0.2.1",
     .fingerprint = 0x32c0269a2bec7aa2, // Changing this has security and trust implications.
     .minimum_zig_version = "0.16.0",
     .dependencies = .{
