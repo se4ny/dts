@@ -243,7 +243,7 @@ auto read_skinned_mesh(io::istream &stream32, io::istream &stream16,
 
    i32 vertex_count = io::read_unchecked<i32>(stream32);
    if (skinned_mesh.mesh.parent_mesh < 0) {
-      skinned_mesh.intial_vertices =
+      skinned_mesh.initial_vertices =
           io::read_unchecked<vec3>(stream32, vertex_count);
       skinned_mesh.initial_normals =
           io::read_unchecked<vec3>(stream32, vertex_count);

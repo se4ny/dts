@@ -162,11 +162,11 @@ auto write_mesh(io::WriteGuard &guard, const mesh::SkinnedMesh &mesh,
                 const i32 version) -> void {
    write_mesh(guard, mesh.mesh, version);
 
-   io::write<i32>(guard.stream32, mesh.intial_vertices.size());
+   io::write<i32>(guard.stream32, mesh.initial_vertices.size());
    if (mesh.mesh.parent_mesh < 0) {
-      io::write(guard.stream32, mesh.intial_vertices);
+      io::write(guard.stream32, mesh.initial_vertices);
       io::write(guard.stream32, mesh.initial_normals);
-      for (auto i = 0; i < mesh.intial_vertices.size(); ++i) {
+      for (auto i = 0; i < mesh.initial_vertices.size(); ++i) {
          io::write<i8>(guard.stream8, 0);
       }
    }

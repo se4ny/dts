@@ -49,7 +49,7 @@ struct DTS_API SkinnedMesh final {
    static constexpr u8 TYPE = 1;
 
    Mesh mesh;
-   Vec<vec3> intial_vertices;
+   Vec<vec3> initial_vertices;
    Vec<vec3> initial_normals;
    Vec<mat4x4> initial_transforms;
    Vec<i32> vertex_indices;
