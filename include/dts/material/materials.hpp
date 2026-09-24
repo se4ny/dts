@@ -13,7 +13,7 @@ using namespace types;
 using namespace collections;
 
 enum class DTS_API MaterialFlags {
-   SWrap = 0 << 1,
+   SWrap = 1 << 0,
    TWrap = 1 << 1,
    Translucent = 1 << 2,
    Additive = 1 << 3,
