@@ -12,6 +12,19 @@ namespace dts::material {
 using namespace types;
 using namespace collections;
 
+enum class DTS_API MaterialFlags {
+   SWrap = 0 << 1,
+   TWrap = 1 << 1,
+   Translucent = 1 << 2,
+   Additive = 1 << 3,
+   Subtractive = 1 << 4,
+   SelfIllumination = 1 << 5,
+   NeverEnvMap = 1 << 6,
+   NoMipMap = 1 << 7,
+   MipMapZeroBorder = 1 << 8,
+   AuxiliaryMap = 1 << 27 | 1 << 28 | 1 << 29 | 1 << 30 | 1 << 31,
+};
+
 struct DTS_API Materials final {
  public:
    u8 version{0};
