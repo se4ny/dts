@@ -2,6 +2,8 @@
 #define _DTS_MATERIAL_MATERIALS_HPP
 
 #include <string>
+#include <type_traits>
+#include <utility>
 
 #include "dts/collections.hpp"
 #include "dts/dts.hpp"
@@ -12,7 +14,7 @@ namespace dts::material {
 using namespace types;
 using namespace collections;
 
-enum DTS_API MaterialFlags : u32 {
+enum class DTS_API MaterialFlags {
    SWrap = 1 << 0,
    TWrap = 1 << 1,
    Translucent = 1 << 2,
@@ -22,8 +24,41 @@ enum DTS_API MaterialFlags : u32 {
    NeverEnvMap = 1 << 6,
    NoMipMap = 1 << 7,
    MipMapZeroBorder = 1 << 8,
-   AuxiliaryMap = 1 << 27 | 1 << 28 | 1 << 29 | 1 << 30 | 1 << 31,
+   AuxiliaryMap = (1 << 27) | (1 << 28) | (1 << 29) | (1 << 30) | (1 << 31),
 };
+
+constexpr auto operator|(MaterialFlags lhs, MaterialFlags rhs)
+    -> MaterialFlags {
+   return static_cast<MaterialFlags>(std::to_underlying(lhs) |
+                                     std::to_underlying(rhs));
+}
+
+constexpr auto operator|=(MaterialFlags lhs, MaterialFlags rhs)
+    -> MaterialFlags {
+   return lhs = lhs | rhs;
+}
+
+constexpr auto operator&(MaterialFlags lhs, MaterialFlags rhs)
+    -> MaterialFlags {
+   return static_cast<MaterialFlags>(std::to_underlying(lhs) &
+                                     std::to_underlying(rhs));
+}
+
+constexpr auto operator&=(MaterialFlags lhs, MaterialFlags rhs)
+    -> MaterialFlags {
+   return lhs = lhs & rhs;
+}
+
+constexpr auto operator^(MaterialFlags lhs, MaterialFlags rhs)
+    -> MaterialFlags {
+   return static_cast<MaterialFlags>(std::to_underlying(lhs) ^
+                                     std::to_underlying(rhs));
+}
+
+constexpr auto operator^=(MaterialFlags lhs, MaterialFlags rhs)
+    -> MaterialFlags {
+   return lhs = lhs ^ rhs;
+}
 
 struct DTS_API Materials final {
  public:
