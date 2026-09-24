@@ -12,7 +12,7 @@ namespace dts::material {
 using namespace types;
 using namespace collections;
 
-enum class DTS_API MaterialFlags {
+enum DTS_API MaterialFlags : u32 {
    SWrap = 1 << 0,
    TWrap = 1 << 1,
    Translucent = 1 << 2,
