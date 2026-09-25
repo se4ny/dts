@@ -2,6 +2,7 @@
 #define _DTS_MESH_MESH_HPP
 
 #include <optional>
+#include <utility>
 #include <variant>
 
 #include "dts/collections.hpp"
@@ -12,6 +13,49 @@ namespace dts::mesh {
 
 using namespace types;
 using namespace collections;
+
+enum class DTS_API PrimitiveFlags {
+   Triangles = 0,
+   Strip = 1 << 30,
+   Fan = 2 << 30,
+   Indexed = 1 << 29,
+   NoMaterial = 1 << 28,
+   MaterialMask = ~(Strip | Fan | Triangles | Indexed | NoMaterial),
+   TypeMask = Strip | Fan | Triangles,
+};
+
+constexpr auto operator|(PrimitiveFlags lhs, PrimitiveFlags rhs)
+    -> PrimitiveFlags {
+   return static_cast<PrimitiveFlags>(std::to_underlying(lhs) |
+                                      std::to_underlying(rhs));
+}
+
+constexpr auto operator|=(PrimitiveFlags lhs, PrimitiveFlags rhs)
+    -> PrimitiveFlags {
+   return lhs = lhs | rhs;
+}
+
+constexpr auto operator&(PrimitiveFlags lhs, PrimitiveFlags rhs)
+    -> PrimitiveFlags {
+   return static_cast<PrimitiveFlags>(std::to_underlying(lhs) &
+                                      std::to_underlying(rhs));
+}
+
+constexpr auto operator&=(PrimitiveFlags lhs, PrimitiveFlags rhs)
+    -> PrimitiveFlags {
+   return lhs = lhs & rhs;
+}
+
+constexpr auto operator^(PrimitiveFlags lhs, PrimitiveFlags rhs)
+    -> PrimitiveFlags {
+   return static_cast<PrimitiveFlags>(std::to_underlying(lhs) ^
+                                      std::to_underlying(rhs));
+}
+
+constexpr auto operator^=(PrimitiveFlags lhs, PrimitiveFlags rhs)
+    -> PrimitiveFlags {
+   return lhs = lhs ^ rhs;
+}
 
 struct DTS_API Primitive final {
    i32 start{0};
