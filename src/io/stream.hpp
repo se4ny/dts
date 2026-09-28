@@ -26,7 +26,7 @@ class VectorBuffer : public io::stream_buf {
       const auto pos = pptr() != nullptr ? pptr() - pbase() : 0;
 
       // NOLINTBEGIN(readability-magic-numbers)
-      this->buffer.resize(this->buffer.size() + 1024);
+      this->buffer.resize(this->buffer.size() * 2);
       // NOLINTEND(readability-magic-numbers)
 
       this->setp(this->buffer.data(),
