@@ -1,5 +1,4 @@
 const std = @import("std");
-const zcc = @import("compile-commands");
 
 pub fn build(b: *std.Build) !void {
     const target = b.standardTargetOptions(.{});
@@ -52,15 +51,4 @@ pub fn build(b: *std.Build) !void {
 
     const test_step = b.step("test", "Build test suite");
     test_step.dependOn(&test_install.step);
-
-    // Compile commands
-    // var targets: std.ArrayList(*std.Build.Step.Compile) = .empty;
-
-    // try targets.append(b.allocator, lib);
-    // try targets.append(b.allocator, test_exe);
-
-    // _ = zcc.createStep(b, .{
-    //     .name = "cdb",
-    //     .targets = targets.items,
-    // });
 }
