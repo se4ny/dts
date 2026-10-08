@@ -54,13 +54,13 @@ pub fn build(b: *std.Build) !void {
     test_step.dependOn(&test_install.step);
 
     // Compile commands
-    var targets: std.ArrayList(*std.Build.Step.Compile) = .empty;
+    // var targets: std.ArrayList(*std.Build.Step.Compile) = .empty;
 
-    try targets.append(b.allocator, lib);
-    try targets.append(b.allocator, test_exe);
+    // try targets.append(b.allocator, lib);
+    // try targets.append(b.allocator, test_exe);
 
-    _ = zcc.createStep(b, .{
-        .name = "cdb",
-        .targets = targets.items,
-    });
+    // _ = zcc.createStep(b, .{
+    //     .name = "cdb",
+    //     .targets = targets.items,
+    // });
 }
