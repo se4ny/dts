@@ -183,7 +183,7 @@ auto export_shape(const Shape &shape, std::filesystem::path &path) -> bool {
 
    outstream.flush();
 
-   return outstream.fail();
+   return outstream.good();
 }
 
 auto import_shape(const std::filesystem::path &path)
